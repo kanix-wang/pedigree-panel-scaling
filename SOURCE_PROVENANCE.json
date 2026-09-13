@@ -1,0 +1,62 @@
+{
+  "package": "pedigree-panel-scaling",
+  "created_utc": "2026-09-13T23:52:43.322204+00:00",
+  "source_repository": "gt_code4",
+  "source_branch": "ticket-hdio-exact-small-census",
+  "source_commit": "240286f31a86931380158347bf67a7aadd75a868",
+  "scope": "Exact current-state inference and two basic policies for examples with 10–15 independent genes and 10–15 individuals per family.",
+  "source_files": [
+    {
+      "path": "src/bayes_risk_audit/production.py",
+      "sha256": "028c86451760c10f15f8db2b4ae171162bf23ac078bf222fb8f70fe4aa7fa227"
+    },
+    {
+      "path": "src/bayes_risk_audit/separator.py",
+      "sha256": "9377505f6f327e8e40330ec70bb6aa95fa6ae1a1637b23db2fae469069440811"
+    },
+    {
+      "path": "src/bayes_risk_audit/scientific_success_inference.py",
+      "sha256": "6e60112b94eec344e5a8565b442bbbe4e6ffe3f0fab700e761a1b0d87e16c50a"
+    },
+    {
+      "path": "src/bayes_risk_audit/scientific_success_nuclear.py",
+      "sha256": "d8a07c63066aae81af7f01f200c43031e70a86d4448690151ac81623f8bdda47"
+    },
+    {
+      "path": "src/bayes_risk_audit/scientific_success_baselines.py",
+      "sha256": "9d8f64b48f991ee09791936676833b0eee34a1990c7015bb327acc2b9fdadb0a"
+    },
+    {
+      "path": "src/bayes_risk_audit/scientific_success_composite.py",
+      "sha256": "9da074ca2d400daa3711b50f58dc19a01d30831a3736c04fe19fc257d1f289a9"
+    },
+    {
+      "path": "src/bayes_risk_audit/ties.py",
+      "sha256": "721f1c044e834db811b6011f81f832e0337c3fa7a5dbefe1a05db76a56f5fd5c"
+    }
+  ],
+  "extraction": {
+    "inference.py": "Complete numerical kernel; renamed module imports, CaseDescriptor -> PedigreeCase, ArrayInferenceState -> InferenceState, ScientificSuccessInference -> PedigreeInference.",
+    "nuclear.py": "Complete exact nuclear specialization; renamed model/inference imports and factory -> make_inference.",
+    "junction_tree.py": "Canonical tree builder; removed unused rooted-separator partition classes and partition_for_test. Removed matching obsolete __all__ exports.",
+    "model.py": "Only required model fields from CaseDescriptor; no audit metadata or external production adapter; new JSON loader and synthetic examples.",
+    "policies.py": "Only recursive-myopic action loop and horizon-one information choice; nuclear moment shortcut and original tie tolerances retained.",
+    "__main__.py": "New bounded single-trajectory installation example with hidden panels revealed only after action choice.",
+    "checks/": "Standalone software correctness checks for the extracted package."
+  },
+  "source_core_clean_at_extraction": true,
+  "ast_equivalence_after_declared_renames_and_removals": {
+    "inference.py": true,
+    "nuclear.py": true,
+    "junction_tree.py": true
+  },
+  "excluded": [
+    "research policy variants and optimizers",
+    "research runners and experimental designs",
+    "all source tests and generated results",
+    "ticket and governance machinery",
+    "source Git history and remote configuration",
+    "private datasets, machine paths and environment files"
+  ],
+  "included_data": "Synthetic case specifications only"
+}
