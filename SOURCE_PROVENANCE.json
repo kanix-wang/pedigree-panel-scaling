@@ -4,7 +4,7 @@
   "source_repository": "gt_code4",
   "source_branch": "ticket-hdio-exact-small-census",
   "source_commit": "240286f31a86931380158347bf67a7aadd75a868",
-  "scope": "Exact current-state inference and two basic policies for examples with 10–15 independent genes and 10–15 individuals per family.",
+  "scope": "Exact current-state inference, unrestricted full-horizon Bellman optimization with explicit resource limits, and two explicit greedy baselines. Target-size examples contain 10–15 independent genes and 10–15 individuals per family; exact optimization at those dimensions is not demonstrated.",
   "source_files": [
     {
       "path": "src/bayes_risk_audit/production.py",
@@ -39,9 +39,9 @@
     "inference.py": "Complete numerical kernel; renamed module imports, CaseDescriptor -> PedigreeCase, ArrayInferenceState -> InferenceState, ScientificSuccessInference -> PedigreeInference.",
     "nuclear.py": "Complete exact nuclear specialization; renamed model/inference imports and factory -> make_inference.",
     "junction_tree.py": "Canonical tree builder; removed unused rooted-separator partition classes and partition_for_test. Removed matching obsolete __all__ exports.",
-    "model.py": "Only required model fields from CaseDescriptor; no audit metadata or external production adapter; new JSON loader and synthetic examples.",
+    "model.py": "Required model fields from CaseDescriptor, standalone JSON loader, and synthetic family generator; no research metadata or external production adapter.",
     "policies.py": "Only recursive-myopic action loop and horizon-one information choice; nuclear moment shortcut and original tie tolerances retained.",
-    "__main__.py": "New bounded single-trajectory installation example with hidden panels revealed only after action choice.",
+    "__main__.py": "Default exact optimization on a small case, with optimal or resource_limit JSON output; greedy trajectories require explicit selection.",
     "checks/": "Standalone software correctness checks for the extracted package."
   },
   "source_core_clean_at_extraction": true,
@@ -51,12 +51,45 @@
     "junction_tree.py": true
   },
   "excluded": [
-    "research policy variants and optimizers",
+    "experimental research optimizers and policy variants beyond the documented exact solver and two baselines",
     "research runners and experimental designs",
     "all source tests and generated results",
     "ticket and governance machinery",
     "source Git history and remote configuration",
     "private datasets, machine paths and environment files"
   ],
-  "included_data": "Synthetic case specifications only"
+  "included_data": "Synthetic case specifications only",
+  "exact_optimizer": {
+    "added_on": "2026-09-14",
+    "reference_repository": "gt_code2",
+    "reference_branch": "baseline-161b7b4",
+    "reference_commit": "7fbff6195af8edab7bfe39cf83c25b88139f7a03",
+    "reference_worktree_has_local_changes": true,
+    "implementation": "Standalone adaptation of unrestricted joint-state backward induction. Uses the extracted inference and reward kernels, all legal test actions and supported full-panel outcomes, memoized values, and analytical zero continuation after the final test. No runtime import of gt_code2 or gt_code4.",
+    "reference_api": "genetic_dp.exact_dp.solver.solve_exact_dp_primal",
+    "source_files": [
+      {
+        "path": "genetic_dp/exact_dp/solver.py",
+        "sha256": "233a4a06f45da5c6fb8f7abd30718b2a04d541fe587120c542e40d2e2759b23d"
+      },
+      {
+        "path": "genetic_dp/exact_dp/bellman.py",
+        "sha256": "fffb35d6c445aa4e25ff97386bf488a3feda52d80cc189b550a6e5163aec6abb"
+      },
+      {
+        "path": "genetic_dp/models/belief.py",
+        "sha256": "fef5fe4f3576705a719ca9035f3cee6c6416d0cc928d9d99e1e88d085f6d71c9"
+      },
+      {
+        "path": "genetic_dp/models/reward.py",
+        "sha256": "69ceb9c17c861b5bc34c74f8c4005ad36b4ba32e50b4c6c0ed8e1449190baf7d"
+      },
+      {
+        "path": "tests/exact_teacher_fixtures.py",
+        "sha256": "b8b0736ffc76adf151b0092abfc339c9e633ace62325040aeab2ae6c78ac9ab9"
+      }
+    ],
+    "validation": "Compared packaged optimal values and selected-action regret with the native gt_code2 backward-induction solution on all 2696 supported states in two matched two-gene cases. Maximum value difference 5.551115123125783e-17; zero selected-action regret. Reference file hashes identify the live source, including existing local changes.",
+    "not_the_reference": "The named multigene dual using additive per-gene value functions is a separate upper-bound calculation and is not the unrestricted optimum used for compatibility."
+  }
 }

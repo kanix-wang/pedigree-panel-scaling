@@ -1,0 +1,41 @@
+{
+  "people": [
+    "Father",
+    "Mother",
+    "Child"
+  ],
+  "relationships": [
+    [
+      "Child",
+      "Father",
+      "Mother"
+    ]
+  ],
+  "genes": [
+    "GeneA",
+    "GeneB"
+  ],
+  "allele_freqs": {
+    "GeneA": 0.05,
+    "GeneB": 0.08
+  },
+  "a_gene": {
+    "GeneA": -0.08,
+    "GeneB": -0.06
+  },
+  "b_gene": {
+    "GeneA": -0.04,
+    "GeneB": -0.03
+  },
+  "omega_gene": {
+    "GeneA": 0.0,
+    "GeneB": 0.0
+  },
+  "delta_gene": {
+    "GeneA": 0.6,
+    "GeneB": 0.7
+  },
+  "fixed_cost": 0.01,
+  "variable_cost": 0.02,
+  "initial_evidence": []
+}

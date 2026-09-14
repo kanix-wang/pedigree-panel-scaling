@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pedigree-panel-scaling"
-version = "0.1.0"
-description = "Exact pedigree inference and basic panel-testing policies for 10–15 genes and people."
+version = "0.2.0"
+description = "Exact pedigree inference, full-horizon optimization, and explicit greedy baselines."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = ["numpy==2.3.4"]

@@ -40,12 +40,15 @@ def load_case(path: str | Path) -> PedigreeCase:
 def synthetic_case(people: int = 15, genes: int = 15,
                    family: str = "nuclear") -> PedigreeCase:
     """Create an illustrative low-width pedigree; parameters are synthetic."""
-    if not 10 <= people <= 15 or not 10 <= genes <= 15:
-        raise ValueError("Examples require 10–15 people and 10–15 genes")
+    if (isinstance(people, bool) or not isinstance(people, int) or people < 3
+            or isinstance(genes, bool) or not isinstance(genes, int) or genes < 1):
+        raise ValueError("Examples require at least 3 people and 1 gene")
     if family == "nuclear":
         names = ("F", "M", *(f"C{i}" for i in range(1, people - 1)))
         relationships = tuple((p, "F", "M") for p in names[2:])
     elif family == "multigeneration":
+        if people < 5:
+            raise ValueError("Multigeneration examples require at least 5 people")
         names = ("F", "M", "S", "C", *(f"G{i}" for i in range(1, people - 3)))
         relationships = (("C", "F", "M"), *((p, "C", "S") for p in names[4:]))
     else:
@@ -53,7 +56,7 @@ def synthetic_case(people: int = 15, genes: int = 15,
     gene_names = tuple(f"g{i}" for i in range(1, genes + 1))
     return PedigreeCase(
         people=names, relationships=relationships, genes=gene_names,
-        allele_freqs={g: 0.01 + 0.001 * i for i, g in enumerate(gene_names)},
+        allele_freqs={g: 0.01 + 0.001 * (i % 15) for i, g in enumerate(gene_names)},
         a_gene=dict.fromkeys(gene_names, -0.4),
         b_gene=dict.fromkeys(gene_names, -0.1),
         omega_gene=dict.fromkeys(gene_names, 0.01),
