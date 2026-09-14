@@ -4,10 +4,10 @@ from .inference import InferenceState, PedigreeInference
 from .model import PedigreeCase, load_case, synthetic_case
 from .nuclear import NuclearInference, make_inference
 from .policies import choose_action
-from .exact import ExactLimits, ExactLimitExceeded, ExactSolution, solve_exact
+from .exact import ExactLimits, ExactLimitExceeded, ExactProgress, ExactSolution, solve_exact
 
 __all__ = [
     "InferenceState", "PedigreeInference", "PedigreeCase", "NuclearInference",
     "make_inference", "choose_action", "load_case", "synthetic_case",
-    "ExactLimits", "ExactLimitExceeded", "ExactSolution", "solve_exact",
+    "ExactLimits", "ExactLimitExceeded", "ExactProgress", "ExactSolution", "solve_exact",
 ]

@@ -1,137 +1,168 @@
 # Package verification
 
-Verified on 2026-09-14 with Python 3.13.5 and NumPy 2.3.4. The exact optimizer
-agrees with native `gt_code2` backward induction on the small cases checked.
-Exact completion for 10–15 individuals and 10–15 genes has not been demonstrated.
+The exact optimizer uses the same unrestricted Bellman problem as native
+`gt_code2` backward induction. Default state, transition, and time limits have
+been removed. The completed runs below use no resource caps. Completion for
+10–15 individuals with 10–15 genes has not been demonstrated.
 
-## Standalone software checks
+## Numerical compatibility
 
-The suite has ten passing checks: six for exact optimization and four for
-inference and greedy trajectory execution. They cover:
+The external 2026-09-14 audit compares optimal values and chosen-action values
+throughout both complete supported two-gene observation graphs:
 
-- Exact backward induction against an independent complete-world enumeration
-  for a two-gene trio, including root action values and continuation queries.
-- The two-gene sibling case, optimal parent tie, conditional initial evidence,
-  analytical last-person closure, and fully tested terminal states.
-- Deterministic support, STOP ties, invalid limits, and each resource-limit
-  exception returning no partial solution.
-- Independent per-gene posterior and pair-probability enumeration for a
-  five-person case, the one-test expected-risk identity, complete-panel rules,
-  preservation of initial evidence, impossible evidence, and panel costs.
-- Eighteen target-dimension combinations: 10, 12, and 15 individuals crossed
-  with 10, 12, and 15 genes, for nuclear and multigeneration pedigrees. These
-  check inference and the two greedy policies, including legal termination and
-  agreement between general and specialized nuclear calculations at the
-  checked histories. They do not run full exact optimization at those sizes.
+| Family | Supported histories | Native optimal root value | Root action |
+| --- | ---: | ---: | --- |
+| Two parents and one child | 432 | -0.05980672625419552 | Child |
+| Two parents and two children | 2,264 | -0.08007587340660761 | Either parent |
 
-To repeat the software checks after installation:
+The installed version 0.3.0 native solver agrees on all **2,696 supported
+histories**, with maximum value discrepancy **2.78 × 10⁻¹⁷** and zero
+selected-action regret. The earlier observation-based reduced implementation
+had maximum discrepancy 5.55 × 10⁻¹⁷ on the same histories. The reference is `genetic_dp.exact_dp.solver.solve_exact_dp_primal`.
+A separate full-joint Bellman oracle and an unrestricted Gurobi linear program
+also cross-check the roots. The multigene dual using additive per-gene value
+functions is an upper-bound calculation and is not the exact reference here.
+
+The per-gene-state implementation was additionally compared with independent
+complete-world enumeration on two four-person, two-gene cases: identical gene
+profiles and a deterministic/nondegenerate pair. For this implementation alone,
+all **2,416 supported histories** pass and **17,584 impossible histories** are
+rejected. Every supported-state value and selected-action value, and all root
+action values, agree within **7.22 × 10⁻¹⁶**. A separate general-engine comparison
+checks the same histories. Counts that sum both engines should not be mistaken
+for additional distinct cases.
+
+These are floating-point agreement checks, not a promise of bitwise-identical
+values. Mathematically tied actions may be affected by floating-point summation
+order; selected-action values are checked against the reference optimum.
+
+## Completed uncapped exact solves
+
+The following measurements use a ten-person nuclear family: two founders and
+eight exchangeable children. Both Python and optional C++ implementations retain
+the full decision horizon and every supported outcome for expanded actions.
+Times are individual solver runs, excluding construction of the inference
+engine. Peak memory is the whole process resident high-water mark on macOS,
+not just the value table. The machine has 512 GiB installed memory.
+
+| Backend | Genes | Numerical gene profiles | Canonical states | Panel transitions | Solver seconds | Peak MiB | Optimal root value |
+| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| Python | 4 | Two profiles, each repeated twice | 613,395 | 28,048,248 | 44.69 | 199.44 | -0.35726014850437826 |
+| Python | 5 | Two profiles, repeated three and two times | 4,492,149 | 488,820,671 | 770.82 | 1194.64 | -0.4284641123009654 |
+| Python | 4 | Different frequency for every gene | 2,213,982 | 100,270,178 | 181.86 | 614.47 | 0.25821118553488315 |
+| C++ | 5 | Two profiles, repeated three and two times | 4,492,149 | 488,820,671 | 18.39 | 355.19 | -0.4284641123009654 |
+| C++ | 5 | Different frequency for every gene | 44,454,192 | 4,739,339,544 | 231.01 | 2919.11 | 0.31812411826030124 |
+
+The alternating-profile cases use allele frequencies 0.05/0.08, input `a`
+coefficients −0.08/−0.06, `b` coefficients −0.04/−0.03, `delta` 0.6/0.7,
+zero `omega`, fixed cost 0.01, and variable cost 0.02. The five-gene case chooses
+a child; the four-gene case chooses a parent. Its full input is supplied as
+`examples/nuclear_10x5_two_profiles.json`.
+
+The distinct-frequency cases are exactly the package's `--people 10 --genes 4`
+and `--people 10 --genes 5` synthetic examples. Both select Father, with Mother
+equally optimal. Its other parameters differ from the alternating-profile
+case, so these two rows are not a controlled timing comparison of profile
+multiplicity alone. Gene-profile equality must include frequency and every
+effective reward coefficient; similar parameters do not permit merging.
+
+A matched four-person, five-gene case provides an implementation comparison:
+
+| Implementation | States | Transitions | Solver seconds | Optimal value |
+| --- | ---: | ---: | ---: | ---: |
+| Original full observation histories, uncapped | 4,544,763 | 13,447,016 | 655.80 | -0.15791697977959407 |
+| Observation arrays with exact state reductions | 77,695 | 761,773 | 57.96 | -0.15791697977959407 |
+| Cached per-gene states | 77,695 | 761,773 | 1.54 | -0.15791697977959412 |
+
+All root action values agree to at most 5.55 × 10⁻¹⁷. Both parents are optimal.
+The input is `examples/siblings_5genes.json`. The optional C++ implementation
+also completed the ten-person, five-gene alternating-profile case in 18.39
+seconds using 355.19 MiB peak process memory. Its value, every root action
+value, state count, and transition count match the Python result bit-for-bit
+for this case. The reductions alter the number
+of represented states, not the underlying probability model or policy choices.
+The original run demonstrates actual completion beyond the previous arbitrary
+100,000-state cap; that cap supplied no evidence of mathematical infeasibility.
+
+## Remaining scale limitations
+
+There is no hard-coded gene ceiling. Runtime and memory depend on family size,
+initial evidence, probability support, topology, and the number of distinct
+numerical gene profiles. The exact nuclear solver combines equivalent child
+histories, but still retains a joint value table over gene posterior states.
+
+An integer structural census establishes the following state counts for the
+current expansion and independence-closure rules. Assumptions are no initial
+evidence, positive founder support preserved numerically, exchangeable children,
+and maximal groups of exactly equal numerical gene profiles:
+
+| Individuals | Genes | Alternating two profiles | All gene profiles distinct |
+| ---: | ---: | ---: | ---: |
+| 10 | 5 | 4,492,149 | 44,454,192 |
+| 10 | 10 | 34,682,522,428 | 215,509,653,745,254 |
+| 15 | 15 | 6,349,458,510,000,527 | 314,219,910,308,597,426,831,637 |
+
+These are structural counts, not completed large solves or runtime estimates.
+For ten people and ten distinct gene profiles, even eight bytes per value alone
+would require about 1.72 petabytes, before keys, actions, or table overhead.
+That complete-table representation cannot fit this machine's memory. Even the
+alternating-profile ten-gene case requires an 86-bit packed key and therefore
+uses the Python backend. On this 64-bit Python build each twelve-element key
+tuple occupies 136 bytes; its 34,682,522,428 keys alone require about 4.72 TB,
+before values or dictionary storage. This is
+not an impossibility result for every exact algorithm. Removing default limits
+does not establish completion at 10–15 genes.
+
+## Software checks and provenance
+
+Run the standalone checks after installation:
 
 ```bash
 python -m unittest discover -s checks -v
 ```
 
-The version 0.2.0 wheel was built and installed into a separate directory. From
-outside the source checkout, isolated Python passed all ten checks and eleven
-command-line checks: the default exact solve, the supplied two-gene trio,
-all three resource-limit responses, and all three target-size examples with
-each greedy policy. Every installed Python source file matched the checked
-source byte-for-byte. Neither `genetic_dp` nor `bayes_risk_audit` was imported.
+A fresh version 0.3.0 wheel with the native extension was installed into a
+separate directory and tested outside the source checkout using isolated Python.
+All **30 software checks** passed with no skips, as did **16 command-line
+checks**. These include the default exact solve, explicit limit responses,
+progress output, the supplied small exact cases, the uncapped ten-person
+five-gene alternating-profile case, and the three large examples under both
+explicit greedy policies. That installed five-gene command completed in 17.73
+seconds with 4,492,149 states and 488,820,671 transitions. A separate uncapped
+run of the installed native solver completed the ten-person case with five
+distinct gene profiles in **233.05 seconds** and 2,916.30 MiB peak process
+memory. Its value, all root action values, 44,454,192 states and 4,739,339,544
+transitions match the external native result exactly for this case.
+All installed Python
+source bytes match the checked source; neither `genetic_dp` nor
+`bayes_risk_audit` was imported. Python 3.13.5, NumPy 2.3.4, and the macOS arm64
+native build were tested. Other supported Python/platform combinations were
+not exercised in this pass.
 
-## Native backward-induction comparison
+Both the Python and compiled backends passed the independent exhaustive oracle
+checks described above at twelve decimal places. The suite also verifies
+missing or unloadable native extensions and wider-key fallback, explicit limits,
+read-only value/action maps, lazy iteration, and preservation of observation
+queries. A separate compiler-failure check confirms installation can proceed
+without the optional extension.
 
-An external audit compared the packaged solver with `gt_code2`'s
-`solve_exact_dp_primal` across every supported full-panel observation state in
-two cases. An independent complete-world support census confirmed coverage.
+The checks cover independent enumeration, complete-panel rules, conditional
+initial evidence, root and descendant queries, exact state equivalence,
+deterministic support, impossible evidence, independent and last-person
+closures, ties, progress callbacks, and explicitly requested resource limits.
+Eighteen dimension combinations (10/12/15 people, 10/12/15 genes, nuclear and
+multigeneration families) check inference and both greedy policies. Those
+large-dimension checks do not solve their full optimization problems.
 
-| Case | Supported observation states | Packaged optimal root value | Selected root action |
-| --- | ---: | ---: | --- |
-| Two parents and one child, two genes | 432 | -0.059806726254195516 | Child |
-| Two parents and two children, two genes | 2,264 | -0.0800758734066076 | Father; Mother also optimal |
+The 2026-09-14 capacity records are external to this shareable repository, under
+`verification/pedigree_panel_scaling_capacity_20260914`. They retain complete
+synthetic parameters, final status, counters, time, process memory, source hashes,
+and frozen executed source snapshots. Earlier version 0.2.0 results remain in
+`verification/pedigree_panel_scaling_exact_20260914`; their imposed budgets are
+historical, not current defaults. Raw reports and research experiments are not
+distributed with this package.
 
-Across all **2,696 supported states**, the maximum absolute value difference
-from native backward induction was **5.55 × 10⁻¹⁷**. Every packaged action was
-optimal under the native reference: maximum selected-action regret was zero,
-and the independent full-horizon comparisons found zero optimal-action-set
-mismatches. The support totals include terminal histories; they are distinct
-from the solver's entered-state counters, which avoid enumerating last-person
-terminal outcomes.
-
-## Observed exact-solver sizes and limits
-
-The following are completed solves of synthetic nuclear families using the
-audit's repeated two-gene parameter profile. They use the full Bellman
-recurrence, not simulated trajectories. Times are single-run solver times in
-the verification environment, excluding inference-engine construction.
-
-| Individuals | Genes | Entered states | Enumerated transitions | Solver seconds | Optimal root value |
-| ---: | ---: | ---: | ---: | ---: | ---: |
-| 3 | 2 | 207 | 385 | 0.027 | -0.059806726254195516 |
-| 3 | 3 | 1,497 | 2,911 | 0.197 | -0.07868168683247073 |
-| 3 | 4 | 11,607 | 22,969 | 1.529 | -0.09702500946239907 |
-| 3 | 5 | 93,393 | 186,055 | 12.173 | -0.11363928296019181 |
-| 4 | 2 | 1,423 | 3,836 | 0.203 | -0.0800758734066076 |
-| 4 | 3 | 19,515 | 55,496 | 2.859 | -0.10652510336941112 |
-| 4 | 4 | 291,343 | 850,652 | 41.747 | -0.1335581399291785 |
-
-The first six rows used limits of 100,000 states, 2,000,000 transitions, and
-60 seconds. The four-individual, four-gene case initially reached a 10-second
-limit; a follow-up with 400,000 states, 2,000,000 transitions, and 90 seconds
-completed as shown above.
-
-The exact input files for the three-person four- and five-gene cases and the
-four-person four-gene case are included as `examples/trio_4genes.json`,
-`examples/trio_5genes.json`, and `examples/siblings_4genes.json`. The README
-shows the larger resource budget needed for the sibling example.
-
-Larger cases returned `resource_limit` with no optimal value or action:
-
-| Individuals | Genes | Active limit | Entered states | Enumerated transitions | Solver seconds |
-| ---: | ---: | --- | ---: | ---: | ---: |
-| 10 | 4 | 100,000 states | 100,000 | 498,632 | 19.551 |
-| 10 | 5 | 100,000 states | 100,000 | 498,632 | 20.130 |
-| 10 | 10 | 3 seconds | 11,746 | 58,183 | 3.000 |
-| 15 | 15 | 3 seconds | 6,905 | 42,903 | 3.000 |
-
-The 10-individual, four- and five-gene follow-ups allowed 30 seconds and
-2,000,000 transitions, but reached the 100,000-state cap first. Their earlier
-five-second probes had reached the time limit. The two target-size probes
-allowed 100,000 states and 2,000,000 transitions but only three seconds; they
-establish noncompletion within those short budgets, not infeasibility with
-larger budgets. Time limits are cooperative and can be slightly exceeded.
-
-In particular, completion for **three individuals and four or five genes**
-does not imply completion for **ten individuals and four or five genes**.
-These measurements establish no universal gene ceiling. Family size, supported
-observations, pedigree structure, and the resource budget all matter. No exact
-optimum is claimed for the 10–15-individual, 10–15-gene scaling target.
-
-## Verification provenance
-
-The 2026-09-14 comparison and size measurements were recorded externally in
-`result.json`, `scaling_limits.json`, and `scaling_limits_extended.json` under
-the maintainer's `verification/pedigree_panel_scaling_exact_20260914` directory.
-All three records are marked complete and retain source-file hashes; their
-source-preservation checks passed. Raw verification outputs and research
-experiments are not distributed in this package.
-
-The external `installed_check.json` and installation log record the fresh
-version 0.2.0 installation checks described above.
-
-The following checks belong to the **historical 2026-09-13 extraction**, before
-the exact optimizer was added:
-
-- Syntax-tree comparisons, ignoring documentation and the documented import
-  and public-name changes, matched the inference and nuclear-family numerical
-  implementations to their source. The junction-tree comparison also accounted
-  for removal of unused separator-partition definitions and exports.
-- The original four standalone checks passed, including the eighteen
-  inference/greedy dimension combinations.
-- A wheel installed into a separate directory passed those four checks and ran
-  the three then-supplied target-size JSON examples with both greedy policies
-  from outside the source repository. It imported neither `bayes_risk_audit`
-  nor `genetic_dp`. That historical result does not verify the later exact
-  optimizer's wheel installation.
-
-These checks establish the reported software behavior for the recorded cases.
-They do not measure comparative speed or validate arbitrary pedigree topologies.
-Other supported Python versions were not tested in this verification pass.
+The reference `gt_code2` checkout has existing local modifications. Its branch,
+commit, and actual source-file hashes are recorded, so this is a numerical
+compatibility check against that source, not a claim of a clean canonical
+benchmark checkout. Neither source repository is a runtime dependency.

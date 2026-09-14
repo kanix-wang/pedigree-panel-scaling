@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 
 import numpy as np
@@ -22,10 +23,15 @@ def main() -> None:
     parser.add_argument("--family", choices=("nuclear", "multigeneration"), default="nuclear")
     parser.add_argument("--policy", choices=("exact", "recursive_myopic", "information_greedy"),
                         default="exact")
-    parser.add_argument("--max-states", type=int, default=100_000)
-    parser.add_argument("--max-transitions", type=int, default=2_000_000)
-    parser.add_argument("--max-seconds", type=float, default=60.0)
+    parser.add_argument("--max-states", type=int, default=None,
+                        help="maximum entered states (default: unlimited)")
+    parser.add_argument("--max-transitions", type=int, default=None,
+                        help="maximum panel transitions (default: unlimited)")
+    parser.add_argument("--max-seconds", type=float, default=None,
+                        help="maximum solver seconds (default: unlimited)")
     parser.add_argument("--seed", type=int, default=7)
+    parser.add_argument("--progress", action="store_true",
+                        help="report exact-solver progress as JSON on stderr")
     args = parser.parse_args()
     try:
         case = load_case(args.case) if args.case else synthetic_case(args.people, args.genes, args.family)
@@ -37,8 +43,14 @@ def main() -> None:
     observations = engine.root_state
     root = engine.state(observations)
     if args.policy == "exact":
+        def report_progress(snapshot):
+            print(json.dumps({"status": "running", "states_evaluated": snapshot.states_evaluated,
+                "transitions_evaluated": snapshot.transitions_evaluated,
+                "independent_states_closed": snapshot.independent_states_closed,
+                "solver_seconds": snapshot.elapsed_seconds}), file=sys.stderr, flush=True)
         try:
-            solution = solve_exact(engine, limits=limits)
+            solution = solve_exact(engine, limits=limits,
+                                   progress=report_progress if args.progress else None)
         except ExactLimitExceeded as error:
             print(json.dumps({
                 "status": "resource_limit", "optimal_value": None, "optimal_action": None,
@@ -59,6 +71,7 @@ def main() -> None:
             "states_evaluated": solution.states_evaluated,
             "transitions_evaluated": solution.transitions_evaluated,
             "terminal_actions_closed": solution.terminal_actions_closed,
+            "independent_states_closed": solution.independent_states_closed,
             "solver_seconds": solution.elapsed_seconds,
             "elapsed_seconds": time.perf_counter() - started,
         }, indent=2, allow_nan=False))

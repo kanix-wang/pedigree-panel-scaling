@@ -1,14 +1,17 @@
 """Exact-optimizer software checks with an independent tiny-family oracle."""
 
-from dataclasses import replace
+from contextlib import redirect_stdout
+from dataclasses import FrozenInstanceError, replace
 from functools import lru_cache
-from itertools import product
+import io
+from itertools import count, product
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 
 from pedigree_panel_scaling import NuclearInference, PedigreeCase, PedigreeInference
-from pedigree_panel_scaling.exact import ExactLimitExceeded, ExactLimits, solve_exact
+from pedigree_panel_scaling.exact import ExactLimitExceeded, ExactLimits, ExactProgress, solve_exact
 
 
 def canonical_case(siblings=False):
@@ -164,9 +167,10 @@ class ExactChecks(unittest.TestCase):
         self.assertEqual(solution.root_value, 0.0)
         self.assertEqual(solution.root_action, -1)
         self.assertTrue(all(value == 0 for value in solution.root_action_values.values()))
-        self.assertEqual(solution.states_evaluated, 7)
-        self.assertEqual(solution.transitions_evaluated, 9)
-        self.assertEqual(solution.terminal_actions_closed, 3)
+        self.assertEqual(solution.states_evaluated, 1)
+        self.assertEqual(solution.transitions_evaluated, 0)
+        self.assertEqual(solution.terminal_actions_closed, 0)
+        self.assertEqual(solution.independent_states_closed, 1)
         impossible = engine.observe(engine.root_state, 0, np.array([1, 0]))
         with self.assertRaises(ValueError):
             solve_exact(engine, impossible)
@@ -184,6 +188,43 @@ class ExactChecks(unittest.TestCase):
                 self.assertEqual(error.reason, field)
                 self.assertEqual((error.states_evaluated, error.transitions_evaluated), counts)
                 self.assertGreaterEqual(error.elapsed_seconds, 0)
+
+    def test_unlimited_defaults_and_throttled_progress(self):
+        limits = ExactLimits()
+        self.assertIsNone(limits.max_states)
+        self.assertIsNone(limits.max_transitions)
+        self.assertIsNone(limits.max_seconds)
+        for kind in (NuclearInference, PedigreeInference):
+            with self.subTest(engine=kind.__name__):
+                engine = kind(canonical_case())
+                snapshots = []
+                output = io.StringIO()
+                # A simulated clock verifies throttling and absence of the former
+                # 60-second default without making the software check wait in real time.
+                clock = count(step=0.25)
+                with patch("pedigree_panel_scaling._native_exact.available", return_value=False), \
+                     patch("pedigree_panel_scaling.exact.perf_counter", side_effect=lambda: next(clock)):
+                    with redirect_stdout(output):
+                        solution = solve_exact(engine, progress=snapshots.append)
+                self.assertEqual(output.getvalue(), "")
+                self.assertAlmostEqual(solution.root_value, -0.05980672625419552, places=12)
+                self.assertGreater(solution.elapsed_seconds, 60.0)
+                self.assertGreater(len(snapshots), 1)
+                self.assertIsInstance(snapshots[0], ExactProgress)
+                self.assertEqual(snapshots[0].states_evaluated, 0)
+                with self.assertRaises(FrozenInstanceError):
+                    snapshots[0].states_evaluated = 1
+                for previous, current in zip(snapshots, snapshots[1:]):
+                    self.assertGreaterEqual(current.elapsed_seconds-previous.elapsed_seconds, 1.0)
+                    self.assertGreaterEqual(current.states_evaluated, previous.states_evaluated)
+                    self.assertGreaterEqual(current.transitions_evaluated, previous.transitions_evaluated)
+                    self.assertGreaterEqual(current.terminal_actions_closed, previous.terminal_actions_closed)
+                self.assertLessEqual(snapshots[-1].states_evaluated, solution.states_evaluated)
+                self.assertLessEqual(snapshots[-1].transitions_evaluated, solution.transitions_evaluated)
+                def stop_observer(snapshot):
+                    raise RuntimeError("observer stopped")
+                with self.assertRaisesRegex(RuntimeError, "observer stopped"):
+                    solve_exact(engine, progress=stop_observer)
 
     def test_invalid_limits(self):
         for field in ("max_states", "max_transitions"):

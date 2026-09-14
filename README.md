@@ -6,9 +6,9 @@ inference core from `gt_code4` and implements the unrestricted backward-inductio
 recurrence used by `gt_code2`.
 
 The scaling target is **10–15 individuals with 10–15 genes per panel**. Exact
-optimization is implemented, but completion at that target size has not been
-demonstrated. The default command solves a small three-person, two-gene example;
-larger examples also support explicitly selected greedy policies.
+optimization has completed for the documented ten-person, four- and five-gene
+nuclear families. Completion at the full 10–15-gene target has not been
+demonstrated. The default command solves a small three-person, two-gene example.
 
 ## Install and run
 
@@ -21,29 +21,48 @@ python -m pip install .
 python -m pedigree_panel_scaling
 ```
 
-Installation uses NumPy 2.3.4 and setuptools 68 or later. On Windows, activate
-the environment with `.venv\Scripts\activate`.
+Installation uses NumPy 2.3.4 and setuptools 68 or later. A C++17 compiler enables
+the optional native accelerator; if it cannot be built, installation retains
+the exact Python solver. On Windows, activate the environment with
+`.venv\Scripts\activate`.
 
 The default is `--policy exact --people 3 --genes 2 --family nuclear`. A completed
 solve reports `status: "optimal"`, the optimal expected value, the first action,
-and every root action's value. The exact solver includes all legal test actions
-and supported panel outcomes. It does not sample outcomes or substitute a greedy
-policy when work is unfinished.
+and every root action's value. The exact solver preserves the full decision
+problem while combining equivalent states and actions and closing independent
+remaining decisions analytically. It does not sample outcomes or substitute a
+greedy policy when work is unfinished.
 
-Run the supplied small case or set resource limits explicitly:
+Run a supplied small case, with optional progress output:
 
 ```bash
 python -m pedigree_panel_scaling --case examples/trio_2genes.json
-python -m pedigree_panel_scaling --case examples/trio_5genes.json
-python -m pedigree_panel_scaling --case examples/siblings_4genes.json --max-states 400000 --max-seconds 90
-python -m pedigree_panel_scaling --people 3 --genes 3 --max-states 100000 --max-transitions 2000000 --max-seconds 60
+python -m pedigree_panel_scaling --case examples/trio_5genes.json --progress
+python -m pedigree_panel_scaling --case examples/siblings_5genes.json --progress
+python -m pedigree_panel_scaling --people 10 --genes 5 --progress
+python -m pedigree_panel_scaling --case examples/nuclear_10x5_two_profiles.json --progress
+python -m pedigree_panel_scaling --people 3 --genes 3
 ```
 
-The defaults allow 100,000 entered states, 2,000,000 enumerated transitions, and
-60 solver seconds. On a limit, the command reports `status: "resource_limit"`,
-sets the optimal value and action to `null`, and exits with code 2. Time checks
-are cooperative between operations, so the time limit can be exceeded by an
-operation already running. Inference-engine construction is outside that budget.
+There are no default state, transition, or time limits. An exact solve continues
+until completion, interruption, or an error. `--progress` writes JSON progress
+records to standard error at most once per second; the final result is written
+to standard output. Progress counts describe canonical decision states actually
+entered and outcome transitions actually enumerated, not the number of distinct
+observation histories represented by the solution.
+
+Resource controls are optional. For example, to request a 60-second solver
+budget explicitly:
+
+```bash
+python -m pedigree_panel_scaling --case examples/siblings_4genes.json --max-seconds 60 --progress
+```
+
+The optional flags are `--max-states`, `--max-transitions`, and `--max-seconds`.
+On a limit, the command reports `status: "resource_limit"`, sets the optimal value
+and action to `null`, and exits with code 2. Time checks are cooperative between
+operations, so an operation already running can exceed the requested time.
+Inference-engine construction is outside that budget.
 
 For a single simulated trajectory at the target dimensions, select a greedy
 policy explicitly:
@@ -66,7 +85,8 @@ completed at that size.
 | `src/pedigree_panel_scaling/` | Model, exact inference, exact optimizer, two greedy baselines, and CLI |
 | `examples/trio_2genes.json` | Small exact-solver example: two parents and one child, two genes |
 | `examples/trio_4genes.json`, `examples/trio_5genes.json` | Three-person exact-solver examples with four and five genes |
-| `examples/siblings_4genes.json` | Four-person, four-gene exact example; needs a larger state budget |
+| `examples/siblings_4genes.json`, `examples/siblings_5genes.json` | Four-person exact-solver examples |
+| `examples/nuclear_10x5_two_profiles.json` | Completed ten-person, five-gene exact case with two repeating parameter profiles |
 | `examples/nuclear_10x10.json` | Synthetic two-parent family: 10 individuals, 10 genes |
 | `examples/multigeneration_12x12.json` | Synthetic multigeneration family: 12 individuals, 12 genes |
 | `examples/nuclear_15x15.json` | Synthetic two-parent family: 15 individuals, 15 genes |
@@ -103,13 +123,10 @@ ranges do not guarantee that exact optimization will finish.
 Given a `PedigreeCase` named `case`, solve the full remaining decision problem:
 
 ```python
-from pedigree_panel_scaling import ExactLimits, make_inference, solve_exact
+from pedigree_panel_scaling import make_inference, solve_exact
 
 engine = make_inference(case)
-solution = solve_exact(
-    engine,
-    limits=ExactLimits(max_states=100000, max_transitions=2000000, max_seconds=60),
-)
+solution = solve_exact(engine)
 value = solution.root_value
 action = solution.root_action
 action_values = solution.root_action_values
@@ -119,9 +136,31 @@ action_values = solution.root_action_values
 `make_inference` selects the nuclear-family specialization when applicable and
 uses the general `PedigreeInference` engine otherwise. `solve_exact` accepts an
 optional observation array as its second argument and raises
-`ExactLimitExceeded` if a resource limit prevents completion. A completed
-`ExactSolution` provides `value_at(observations)` and `action_at(observations)`
-for supported states in the solved observation graph.
+`ExactLimitExceeded` if an explicitly supplied resource limit prevents completion.
+All fields of `ExactLimits()` default to `None`, meaning unlimited. To set an
+optional budget, pass, for example, `limits=ExactLimits(max_seconds=60)` after
+importing `ExactLimits`.
+
+For programmatic progress, pass a callback as `progress=callback`. It receives
+an `ExactProgress` snapshot at most once per second with `states_evaluated`,
+`transitions_evaluated`, `terminal_actions_closed`, `independent_states_closed`,
+and `elapsed_seconds`. The solver itself does not print progress; the completed
+solution contains the final counters. Callback exceptions propagate to the caller.
+
+A completed `ExactSolution` provides `value_at(observations)` and
+`action_at(observations)` for supported descendants of the solved root. Queries
+must preserve initial evidence and any observations supplied to `solve_exact`.
+They use the stored canonical states or compute analytically closed descendants
+exactly, without starting another search.
+
+For nuclear families, exact state compression retains the parental posterior,
+which parents have been tested, and the number of remaining children. Cached
+per-gene states avoid repeated pedigree inference inside the search. It combines
+exchangeable children and genes with identical numerical profiles. General
+pedigrees retain complete observation keys. Both engines can close a remaining
+set of conditionally independent individuals analytically. These reductions use
+no probability rounding, outcome pruning, or planning-horizon restriction; see
+[the model documentation](docs/model.md) for the conditions and formulas.
 
 For a greedy action instead:
 
