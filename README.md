@@ -211,7 +211,7 @@ build. Timing and memory are reported, not required to match across machines.
 The full suite (`--all`) takes many hours; each solve is uncapped. See the
 [resource guide](docs/resources.md) for the complete commands and limitations.
 
-The supplied target examples contain 10–15 individuals and 10–15 genes.
+The supplied target examples contain 10–15 individuals and 10–15 genes. But not both.
 Current-state inference depends on pedigree graph width; exact optimization also
 has to explore joint panel outcomes and future observation states. Only a
 completed exact solve establishes the optimum for that case. See
