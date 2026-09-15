@@ -6,8 +6,9 @@ inference core from `gt_code4` and implements the unrestricted backward-inductio
 recurrence used by `gt_code2`.
 
 The scaling target is **10–15 individuals with 10–15 genes per panel**. Exact
-optimization has completed for the documented ten-person, four- and five-gene
-nuclear families. Completion at the full 10–15-gene target has not been
+optimization has completed for ten-person nuclear families with six distinct
+gene profiles and seven genes sharing two profiles, and twenty people with five
+distinct profiles. Completion at the full 10–15-gene target has not been
 demonstrated. The default command solves a small three-person, two-gene example.
 
 ## Install and run
@@ -93,10 +94,13 @@ completed at that size.
 | `checks/` | Small software correctness checks |
 | `docs/model.md` | Model assumptions, equations, and scaling limits |
 | `docs/validation.md` | Completed checks and observed execution limits |
+| `docs/resources.md` | Measured time/memory, 1,000 GB threshold projections, assumptions and commands |
+| `benchmarks/` | Portable measured inputs/results, integer census, resource projector and exact-run verifier |
 | `SOURCE_PROVENANCE.json` | Source extraction record |
 
-Active research experiments, experimental policy variants, benchmark outputs,
-research tickets, and historical result reports are outside this repository.
+Active research experiments, experimental policy variants, research tickets,
+and full historical logs remain outside this repository. A compact, reproducible
+capacity benchmark and its measured reference data are included in `benchmarks/`.
 All supplied cases are synthetic examples.
 
 ## Use your own family
@@ -187,6 +191,28 @@ stop reward and repeats that rule after each observation. See
 ```bash
 python -m unittest discover -s checks
 ```
+
+Project resource use without running an optimization (GB is decimal):
+
+```bash
+python benchmarks/project.py --fixed-genes 15 --threshold-gb 1000
+python benchmarks/project.py --fixed-people 15 --threshold-gb 1000
+python benchmarks/project.py --fixed-genes 15 --threshold-gb 1000 --profile alternating
+python benchmarks/project.py --fixed-people 15 --threshold-gb 1000 --profile alternating
+```
+
+Rerun a measured exact benchmark in a fresh process and save time, peak memory,
+optimal-value comparisons, and exact work counts:
+
+```bash
+python benchmarks/verify.py --list
+python benchmarks/verify.py --case nuclear_n10_g4_distinct --output benchmark-results/10p4g.json
+```
+
+The default verification case took about four seconds with the measured native
+build. Timing and memory are reported, not required to match across machines.
+The full suite (`--all`) takes many hours; each solve is uncapped. See the
+[resource guide](docs/resources.md) for the complete commands and limitations.
 
 The supplied target examples contain 10–15 individuals and 10–15 genes.
 Current-state inference depends on pedigree graph width; exact optimization also

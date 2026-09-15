@@ -5,6 +5,11 @@ The exact optimizer uses the same unrestricted Bellman problem as native
 been removed. The completed runs below use no resource caps. Completion for
 10–15 individuals with 10–15 genes has not been demonstrated.
 
+The [resource guide](resources.md) adds the completed September 14–15 capacity
+study, portable data for 18 reference cases, projections at 1,000 GB, and code
+to rerun and verify exact benchmarks. The measurements below retain the earlier
+validation record; the resource guide includes the later, larger completed runs.
+
 ## Numerical compatibility
 
 The external 2026-09-14 audit compares optimal values and chosen-action values
@@ -42,8 +47,9 @@ The following measurements use a ten-person nuclear family: two founders and
 eight exchangeable children. Both Python and optional C++ implementations retain
 the full decision horizon and every supported outcome for expanded actions.
 Times are individual solver runs, excluding construction of the inference
-engine. Peak memory is the whole process resident high-water mark on macOS,
-not just the value table. The machine has 512 GiB installed memory.
+engine. Peak memory is the process resident high-water mark sampled when the result
+is available on macOS, before subsequent shutdown; it is not just the value table
+or a guaranteed entire-process-lifetime peak. The machine has 512 GiB installed memory.
 
 | Backend | Genes | Numerical gene profiles | Canonical states | Panel transitions | Solver seconds | Peak MiB | Optimal root value |
 | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
@@ -154,13 +160,14 @@ Eighteen dimension combinations (10/12/15 people, 10/12/15 genes, nuclear and
 multigeneration families) check inference and both greedy policies. Those
 large-dimension checks do not solve their full optimization problems.
 
-The 2026-09-14 capacity records are external to this shareable repository, under
+The raw 2026-09-14 capacity records are external to this shareable repository, under
 `verification/pedigree_panel_scaling_capacity_20260914`. They retain complete
 synthetic parameters, final status, counters, time, process memory, source hashes,
 and frozen executed source snapshots. Earlier version 0.2.0 results remain in
 `verification/pedigree_panel_scaling_exact_20260914`; their imposed budgets are
 historical, not current defaults. Raw reports and research experiments are not
-distributed with this package.
+distributed with this package. Compact inputs, outcomes, resource measurements,
+and source hashes are now included in `benchmarks/reference.json`.
 
 The reference `gt_code2` checkout has existing local modifications. Its branch,
 commit, and actual source-file hashes are recorded, so this is a numerical

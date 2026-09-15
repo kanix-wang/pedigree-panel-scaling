@@ -1,0 +1,2586 @@
+{
+  "schema_version": 1,
+  "benchmark_commit": "3963f91317422e051de7ac894f20794c2ec9d526",
+  "measurement_date": "2026-09-15",
+  "machine": {
+    "platform": "macOS arm64",
+    "python": "3.13.5",
+    "numpy": "2.3.4",
+    "logical_cpus": 32,
+    "physical_memory_bytes": 549755813888,
+    "parallelization": "Independent cases ran concurrently; each solver used one core."
+  },
+  "source_sha256": {
+    "exact_reductions.py": "ae99b5923a489e30a322cab1316322d7b47d11c3dd71bcb7eab33d36c7d894db",
+    "_native_exact.py": "400b4dd5126e96a428cdba8bbdf90dfcf5990ec2c66b4461192437ed5075330b",
+    "junction_tree.py": "383d5a701192535bb50f179e1b264b42fc2da25a9fa8c66f9a37fae3aedb03c8",
+    "__init__.py": "b4c3073095b45d4ad5aedbcabad8eb9755d5e2cf68bc416a80a6eeb5ab7a0883",
+    "model.py": "dfaff4a7f2422c92ee92fca7c7768555bb3af95881b79ba768c32c528f97e39b",
+    "exact.py": "949890df7ab0f666543dd5a8d640ead51a2d14561f88fd8bd4329829de2ff2e1",
+    "nuclear.py": "5636a2fb304be47ed12d79f959ecd3f247fb0d92614ec80f73b395c47f2bcba0",
+    "inference.py": "4b7cb835685da03b5c1385ded57a20ac844f73541a76f4a33a8d2ecf8a7e74c2",
+    "_nuclear_exact.py": "2eda884f8cbdc6a33a3803a3a343efd538e0fbf0e5643e978374d66e731bae4c",
+    "policies.py": "0b2926016b24864abf97f7381a27eb7c400426ffdb62b5ffbdc1fd9cee61b865",
+    "__main__.py": "6fa1302bc5574ce703329b269e503cd6bbbbb28411eaee3971a37bb1dfae5cb3",
+    "_native.cpp": "36f75d1ced4d0889a6a703fe6d7b6ee70ee0a961d536639444d2c185814241b8",
+    "_native.cpython-313-darwin.so": "320658ddcad338f43a5c4e1fba7701b766343d7763937b5e19e5be080aadbcb4"
+  },
+  "source_artifact_sha256": {
+    "measurements.json": "d1655828e1f0537331986b2d960672c7b3da30180eb37d6b06c533f21161d8d3",
+    "memory_projection.json": "679d163037a9e93d1fa0e44d12f204f335f8e40da38490d850cfe9e1893c49b3",
+    "structural_limits.json": "d8b54490036428ee201cee09806aa4ea7f700fbc2cdd72d182139dba3aa8b494",
+    "final_integrity_audit_20260915.json": "08f41d6f8b21d87a7ef0eac41db8c64c6a9822a01a7d9718e4746e38a3413b0b"
+  },
+  "cases": {
+    "nuclear_n12_g5_distinct": {
+      "family": "nuclear",
+      "people": 12,
+      "genes": 5,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ],
+          [
+            "C9",
+            "F",
+            "M"
+          ],
+          [
+            "C10",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.40095097366210003,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.19293485846360017,
+        "F": 0.40095097366210003,
+        "M": 0.40095097366210003,
+        "C1": 0.38063621854369856,
+        "C2": 0.38063621854369856,
+        "C3": 0.38063621854369856,
+        "C4": 0.38063621854369856,
+        "C5": 0.38063621854369856,
+        "C6": 0.38063621854369856,
+        "C7": 0.38063621854369856,
+        "C8": 0.38063621854369856,
+        "C9": 0.38063621854369856,
+        "C10": 0.38063621854369856
+      },
+      "states": 111109410,
+      "transitions": 13922094694,
+      "terminal_actions_closed": 34479785,
+      "independent_states_closed": 535338,
+      "solver_seconds": 916.7793915830553,
+      "peak_rss_bytes": 7997325312,
+      "cpu_seconds": 915.7827065600001,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "5563095157bba6828e431b7278bc5517beeb171699e30faea41467739fb83c27",
+      "initial_rss_bytes": 46792704,
+      "result_stage_rss_bytes": 7997325312
+    },
+    "nuclear_n15_g5_distinct": {
+      "family": "nuclear",
+      "people": 15,
+      "genes": 5,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10",
+          "C11",
+          "C12",
+          "C13"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ],
+          [
+            "C9",
+            "F",
+            "M"
+          ],
+          [
+            "C10",
+            "F",
+            "M"
+          ],
+          [
+            "C11",
+            "F",
+            "M"
+          ],
+          [
+            "C12",
+            "F",
+            "M"
+          ],
+          [
+            "C13",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.5251523562568169,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.2455534562264002,
+        "F": 0.5251523562568169,
+        "M": 0.5251523562568169,
+        "C1": 0.5048375129221576,
+        "C2": 0.5048375129221576,
+        "C3": 0.5048375129221576,
+        "C4": 0.5048375129221576,
+        "C5": 0.5048375129221576,
+        "C6": 0.5048375129221576,
+        "C7": 0.5048375129221576,
+        "C8": 0.5048375129221576,
+        "C9": 0.5048375129221576,
+        "C10": 0.5048375129221576,
+        "C11": 0.5048375129221576,
+        "C12": 0.5048375129221576,
+        "C13": 0.5048375129221576
+      },
+      "states": 354920637,
+      "transitions": 52379592619,
+      "terminal_actions_closed": 90929897,
+      "independent_states_closed": 713946,
+      "solver_seconds": 4066.624977292493,
+      "peak_rss_bytes": 21577678848,
+      "cpu_seconds": 4061.266378752,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "13a6b662e627d251ac9a28ef39106d060ba2fdbf4ae67052824a3927cebc2ee0",
+      "initial_rss_bytes": 47366144,
+      "result_stage_rss_bytes": 21577678848
+    },
+    "nuclear_n10_g6_distinct": {
+      "family": "nuclear",
+      "people": 10,
+      "genes": 6,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014,
+          "g6": 0.015
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4,
+          "g6": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1,
+          "g6": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01,
+          "g6": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5,
+          "g6": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.37049502583765587,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.24104341991340014,
+        "F": 0.37049502583765587,
+        "M": 0.37049502583765587,
+        "C1": 0.35227358205793396,
+        "C2": 0.35227358205793396,
+        "C3": 0.35227358205793396,
+        "C4": 0.35227358205793396,
+        "C5": 0.35227358205793396,
+        "C6": 0.35227358205793396,
+        "C7": 0.35227358205793396,
+        "C8": 0.35227358205793396
+      },
+      "states": 926678454,
+      "transitions": 235481547722,
+      "terminal_actions_closed": 382737393,
+      "independent_states_closed": 3728842,
+      "solver_seconds": 17221.58145829104,
+      "peak_rss_bytes": 59593752576,
+      "cpu_seconds": 17207.684980736,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "18e66afd663dfb1ad19452c7807a88b5eae4dc79a51a22d7e40077e94375442f",
+      "initial_rss_bytes": 47071232,
+      "result_stage_rss_bytes": 59593752576
+    },
+    "nuclear_n10_g6_alternating": {
+      "family": "nuclear",
+      "people": 10,
+      "genes": 6,
+      "profile": "alternating",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6"
+        ],
+        "allele_freqs": {
+          "g1": 0.05,
+          "g2": 0.08,
+          "g3": 0.05,
+          "g4": 0.08,
+          "g5": 0.05,
+          "g6": 0.08
+        },
+        "a_gene": {
+          "g1": -0.08,
+          "g2": -0.06,
+          "g3": -0.08,
+          "g4": -0.06,
+          "g5": -0.08,
+          "g6": -0.06
+        },
+        "b_gene": {
+          "g1": -0.04,
+          "g2": -0.03,
+          "g3": -0.04,
+          "g4": -0.03,
+          "g5": -0.04,
+          "g6": -0.03
+        },
+        "omega_gene": {
+          "g1": 0.0,
+          "g2": 0.0,
+          "g3": 0.0,
+          "g4": 0.0,
+          "g5": 0.0,
+          "g6": 0.0
+        },
+        "delta_gene": {
+          "g1": 0.6,
+          "g2": 0.7,
+          "g3": 0.6,
+          "g4": 0.7,
+          "g5": 0.6,
+          "g6": 0.7
+        },
+        "fixed_cost": 0.01,
+        "variable_cost": 0.02,
+        "initial_evidence": []
+      },
+      "value": -0.49760795161477256,
+      "action": "C1",
+      "root_action_values": {
+        "STOP": -1.24139287152,
+        "F": -0.49764623546816117,
+        "M": -0.49764623546816117,
+        "C1": -0.49760795161477256,
+        "C2": -0.49760795161477256,
+        "C3": -0.49760795161477256,
+        "C4": -0.49760795161477256,
+        "C5": -0.49760795161477256,
+        "C6": -0.49760795161477256,
+        "C7": -0.49760795161477256,
+        "C8": -0.49760795161477256
+      },
+      "states": 33989157,
+      "transitions": 8910700261,
+      "terminal_actions_closed": 13547225,
+      "independent_states_closed": 191782,
+      "solver_seconds": 331.11133908480406,
+      "peak_rss_bytes": 2549678080,
+      "cpu_seconds": 330.92981619200003,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "54fcbc035c280adc9b44f69d4b0a3e1b3caf82657f4a0eab72849d12a6900fd7",
+      "initial_rss_bytes": 47742976,
+      "result_stage_rss_bytes": 2549678080
+    },
+    "multigeneration_n5_g2_distinct": {
+      "family": "multigeneration",
+      "people": 5,
+      "genes": 2,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.01037257354564242,
+      "action": "G1",
+      "root_action_values": {
+        "STOP": -0.004389628653899996,
+        "F": -0.0059126977383942,
+        "M": -0.005912697738394198,
+        "S": 0.00026706272352820457,
+        "C": 0.009454536319453834,
+        "G1": 0.01037257354564242
+      },
+      "states": 14255,
+      "transitions": 36951,
+      "terminal_actions_closed": 9381,
+      "independent_states_closed": 1880,
+      "solver_seconds": 2.9711058754473925,
+      "peak_rss_bytes": 51298304,
+      "cpu_seconds": 3.097707232,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "63cc13dc1c5cf0c97c005aa2318fe6dbf7d2a966d04d00474628d3c39d90ac0f",
+      "initial_rss_bytes": 48463872,
+      "result_stage_rss_bytes": 51298304
+    },
+    "multigeneration_n6_g2_distinct": {
+      "family": "multigeneration",
+      "people": 6,
+      "genes": 2,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1",
+          "G2"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ],
+          [
+            "G2",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.02019349034086658,
+      "action": "C",
+      "root_action_values": {
+        "STOP": -0.005643808269299999,
+        "F": 0.006081255866198638,
+        "M": 0.006081255866198638,
+        "S": 0.019812781408321795,
+        "C": 0.02019349034086658,
+        "G1": 0.01975645669298779,
+        "G2": 0.01975645669298778
+      },
+      "states": 91503,
+      "transitions": 269622,
+      "terminal_actions_closed": 50414,
+      "independent_states_closed": 18841,
+      "solver_seconds": 23.054469000548124,
+      "peak_rss_bytes": 75612160,
+      "cpu_seconds": 23.156085840000003,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "34a066ad30af12d1f8a8f938ad828df7fc2b20f7e09c3accc2849f7924fbaac3",
+      "initial_rss_bytes": 46710784,
+      "result_stage_rss_bytes": 75612160
+    },
+    "multigeneration_n5_g3_distinct": {
+      "family": "multigeneration",
+      "people": 5,
+      "genes": 3,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.02588089987149972,
+      "action": "C",
+      "root_action_values": {
+        "STOP": -0.01669050030829998,
+        "F": 0.015619273106088873,
+        "M": 0.015619273106088873,
+        "S": 0.024722032636471908,
+        "C": 0.02588089987149972,
+        "G1": 0.024322700041976484
+      },
+      "states": 523087,
+      "transitions": 1459071,
+      "terminal_actions_closed": 428277,
+      "independent_states_closed": 33268,
+      "solver_seconds": 112.23941987380385,
+      "peak_rss_bytes": 172818432,
+      "cpu_seconds": 112.252505536,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "cce333bcf4341f377c8cb39a67741bb1501ddd4d238a7e4ef09c8354a26c6bb0",
+      "initial_rss_bytes": 46825472,
+      "result_stage_rss_bytes": 172818432
+    },
+    "multigeneration_n8_g2_distinct": {
+      "family": "multigeneration",
+      "people": 8,
+      "genes": 2,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1",
+          "G2",
+          "G3",
+          "G4"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ],
+          [
+            "G2",
+            "C",
+            "S"
+          ],
+          [
+            "G3",
+            "C",
+            "S"
+          ],
+          [
+            "G4",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.058770843272088716,
+      "action": "C",
+      "root_action_values": {
+        "STOP": -0.008152167500099977,
+        "F": 0.038873134786789824,
+        "M": 0.038873134786789824,
+        "S": 0.05859221110011132,
+        "C": 0.058770843272088716,
+        "G1": 0.04136498522466342,
+        "G2": 0.04136498522466342,
+        "G3": 0.04136498522466342,
+        "G4": 0.04136498522466342
+      },
+      "states": 4851899,
+      "transitions": 16127786,
+      "terminal_actions_closed": 1961560,
+      "independent_states_closed": 1710391,
+      "solver_seconds": 1647.3379930835217,
+      "peak_rss_bytes": 1186152448,
+      "cpu_seconds": 1645.0126675200002,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "538e7d26e28dc66cd8259458e3002cf095922fb567a244d0cbe7f214a1aadc00",
+      "initial_rss_bytes": 44695552,
+      "result_stage_rss_bytes": 1186152448
+    },
+    "multigeneration_n5_g4_distinct": {
+      "family": "multigeneration",
+      "people": 5,
+      "genes": 4,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.04736964482899893,
+      "action": "C",
+      "root_action_values": {
+        "STOP": -0.03569779513020002,
+        "F": 0.038610200980405796,
+        "M": 0.038610200980405796,
+        "S": 0.04592443097005866,
+        "C": 0.04736964482899893,
+        "G1": 0.04078235447919912
+      },
+      "states": 22296767,
+      "transitions": 66524883,
+      "terminal_actions_closed": 20279109,
+      "independent_states_closed": 617780,
+      "solver_seconds": 5028.502593208104,
+      "peak_rss_bytes": 4884742144,
+      "cpu_seconds": 5021.651042304,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "ae249c98194b3442e331807d49e1a189b7237611d7b4c31d52acff65db2f43d0",
+      "initial_rss_bytes": 45694976,
+      "result_stage_rss_bytes": 4884742144
+    },
+    "nuclear_n10_g4_distinct": {
+      "family": "nuclear",
+      "people": 10,
+      "genes": 4,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.25821118553488315,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.09179433033480011,
+        "F": 0.25821118553488315,
+        "M": 0.25821118553488315,
+        "C1": 0.23590630089579032,
+        "C2": 0.23590630089579032,
+        "C3": 0.23590630089579032,
+        "C4": 0.23590630089579032,
+        "C5": 0.23590630089579032,
+        "C6": 0.23590630089579032,
+        "C7": 0.23590630089579032,
+        "C8": 0.23590630089579032
+      },
+      "states": 2213982,
+      "transitions": 100270178,
+      "terminal_actions_closed": 670113,
+      "independent_states_closed": 46906,
+      "solver_seconds": 4.26497258245945,
+      "peak_rss_bytes": 209518592,
+      "cpu_seconds": 4.391194004,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "5c5500199b9757206d1c680fa677589aefa8c140a0de9da274eea7b68b62ee06",
+      "initial_rss_bytes": 47300608,
+      "result_stage_rss_bytes": 209518592
+    },
+    "nuclear_n5_g5_distinct": {
+      "family": "nuclear",
+      "people": 5,
+      "genes": 5,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.11051988792326597,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.07015813035040006,
+        "F": 0.11051988792326597,
+        "M": 0.11051988792326597,
+        "C1": 0.09223129901140946,
+        "C2": 0.09223129901140946,
+        "C3": 0.09223129901140946
+      },
+      "states": 1825347,
+      "transitions": 67960869,
+      "terminal_actions_closed": 1134697,
+      "independent_states_closed": 118586,
+      "solver_seconds": 3.4094798751175404,
+      "peak_rss_bytes": 189661184,
+      "cpu_seconds": 3.540298844,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "608dbbb50247654c1b3b4e558cd6a45e7b25b8debf0da97cf2111f6cdc6db35f",
+      "initial_rss_bytes": 47562752,
+      "result_stage_rss_bytes": 189661184
+    },
+    "nuclear_n20_g5_distinct": {
+      "family": "nuclear",
+      "people": 20,
+      "genes": 5,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ],
+          [
+            "C9",
+            "F",
+            "M"
+          ],
+          [
+            "C10",
+            "F",
+            "M"
+          ],
+          [
+            "C11",
+            "F",
+            "M"
+          ],
+          [
+            "C12",
+            "F",
+            "M"
+          ],
+          [
+            "C13",
+            "F",
+            "M"
+          ],
+          [
+            "C14",
+            "F",
+            "M"
+          ],
+          [
+            "C15",
+            "F",
+            "M"
+          ],
+          [
+            "C16",
+            "F",
+            "M"
+          ],
+          [
+            "C17",
+            "F",
+            "M"
+          ],
+          [
+            "C18",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.732122020763898,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.33325111916440026,
+        "F": 0.732122020763898,
+        "M": 0.732122020763898,
+        "C1": 0.7118060938987938,
+        "C2": 0.7118060938987938,
+        "C3": 0.7118060938987938,
+        "C4": 0.7118060938987938,
+        "C5": 0.7118060938987938,
+        "C6": 0.7118060938987938,
+        "C7": 0.7118060938987938,
+        "C8": 0.7118060938987938,
+        "C9": 0.7118060938987938,
+        "C10": 0.7118060938987938,
+        "C11": 0.7118060938987938,
+        "C12": 0.7118060938987938,
+        "C13": 0.7118060938987938,
+        "C14": 0.7118060938987938,
+        "C15": 0.7118060938987938,
+        "C16": 0.7118060938987938,
+        "C17": 0.7118060938987938,
+        "C18": 0.7118060938987938
+      },
+      "states": 1673624682,
+      "transitions": 291449240094,
+      "terminal_actions_closed": 329891497,
+      "independent_states_closed": 1011626,
+      "solver_seconds": 25299.75353791751,
+      "peak_rss_bytes": 96030474240,
+      "cpu_seconds": 25283.293917183997,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "0fb741c5a9066dedaf9e033a9127d00c3c4820f9844da52e698dd9add1e9c00f",
+      "initial_rss_bytes": 46628864,
+      "result_stage_rss_bytes": 96030474240
+    },
+    "nuclear_n10_g7_alternating": {
+      "family": "nuclear",
+      "people": 10,
+      "genes": 7,
+      "profile": "alternating",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7"
+        ],
+        "allele_freqs": {
+          "g1": 0.05,
+          "g2": 0.08,
+          "g3": 0.05,
+          "g4": 0.08,
+          "g5": 0.05,
+          "g6": 0.08,
+          "g7": 0.05
+        },
+        "a_gene": {
+          "g1": -0.08,
+          "g2": -0.06,
+          "g3": -0.08,
+          "g4": -0.06,
+          "g5": -0.08,
+          "g6": -0.06,
+          "g7": -0.08
+        },
+        "b_gene": {
+          "g1": -0.04,
+          "g2": -0.03,
+          "g3": -0.04,
+          "g4": -0.03,
+          "g5": -0.04,
+          "g6": -0.03,
+          "g7": -0.04
+        },
+        "omega_gene": {
+          "g1": 0.0,
+          "g2": 0.0,
+          "g3": 0.0,
+          "g4": 0.0,
+          "g5": 0.0,
+          "g6": 0.0,
+          "g7": 0.0
+        },
+        "delta_gene": {
+          "g1": 0.6,
+          "g2": 0.7,
+          "g3": 0.6,
+          "g4": 0.7,
+          "g5": 0.6,
+          "g6": 0.7,
+          "g7": 0.6
+        },
+        "fixed_cost": 0.01,
+        "variable_cost": 0.02,
+        "initial_evidence": []
+      },
+      "value": -0.5639469003154983,
+      "action": "C1",
+      "root_action_values": {
+        "STOP": -1.43693497152,
+        "F": -0.5640282792289255,
+        "M": -0.5640282792289255,
+        "C1": -0.5639469003154983,
+        "C2": -0.5639469003154983,
+        "C3": -0.5639469003154983,
+        "C4": -0.5639469003154983,
+        "C5": -0.5639469003154983,
+        "C6": -0.5639469003154983,
+        "C7": -0.5639469003154983,
+        "C8": -0.5639469003154983
+      },
+      "states": 206079815,
+      "transitions": 132257678841,
+      "terminal_actions_closed": 91341675,
+      "independent_states_closed": 573532,
+      "solver_seconds": 6248.801861749962,
+      "peak_rss_bytes": 13246431232,
+      "cpu_seconds": 6241.364374528,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "92c133109538701e3b2efafc1369eba8635a4386767d9ac3f44915cf611d4225",
+      "initial_rss_bytes": 47349760,
+      "result_stage_rss_bytes": 13246431232
+    },
+    "nuclear_n3_g10_alternating": {
+      "family": "nuclear",
+      "people": 3,
+      "genes": 10,
+      "profile": "alternating",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8",
+          "g9",
+          "g10"
+        ],
+        "allele_freqs": {
+          "g1": 0.05,
+          "g2": 0.08,
+          "g3": 0.05,
+          "g4": 0.08,
+          "g5": 0.05,
+          "g6": 0.08,
+          "g7": 0.05,
+          "g8": 0.08,
+          "g9": 0.05,
+          "g10": 0.08
+        },
+        "a_gene": {
+          "g1": -0.08,
+          "g2": -0.06,
+          "g3": -0.08,
+          "g4": -0.06,
+          "g5": -0.08,
+          "g6": -0.06,
+          "g7": -0.08,
+          "g8": -0.06,
+          "g9": -0.08,
+          "g10": -0.06
+        },
+        "b_gene": {
+          "g1": -0.04,
+          "g2": -0.03,
+          "g3": -0.04,
+          "g4": -0.03,
+          "g5": -0.04,
+          "g6": -0.03,
+          "g7": -0.04,
+          "g8": -0.03,
+          "g9": -0.04,
+          "g10": -0.03
+        },
+        "omega_gene": {
+          "g1": 0.0,
+          "g2": 0.0,
+          "g3": 0.0,
+          "g4": 0.0,
+          "g5": 0.0,
+          "g6": 0.0,
+          "g7": 0.0,
+          "g8": 0.0,
+          "g9": 0.0,
+          "g10": 0.0
+        },
+        "delta_gene": {
+          "g1": 0.6,
+          "g2": 0.7,
+          "g3": 0.6,
+          "g4": 0.7,
+          "g5": 0.6,
+          "g6": 0.7,
+          "g7": 0.6,
+          "g8": 0.7,
+          "g9": 0.6,
+          "g10": 0.7
+        },
+        "fixed_cost": 0.01,
+        "variable_cost": 0.02,
+        "initial_evidence": []
+      },
+      "value": -0.1911548910271706,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.4597751376,
+        "F": -0.1911548910271706,
+        "M": -0.1911548910271706,
+        "C1": -0.1920875027951114
+      },
+      "states": 2084581,
+      "transitions": 62639649,
+      "terminal_actions_closed": 2083257,
+      "independent_states_closed": 0,
+      "solver_seconds": 3.0784623753279448,
+      "peak_rss_bytes": 200540160,
+      "cpu_seconds": 3.200733884,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "3f3901ff1b10f74e6bc8a3e9cf54a513bdbf3a3228af309cd652b8022de261de",
+      "initial_rss_bytes": 45711360,
+      "result_stage_rss_bytes": 200540160
+    },
+    "nuclear_n20_g4_distinct": {
+      "family": "nuclear",
+      "people": 20,
+      "genes": 4,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ],
+          [
+            "C9",
+            "F",
+            "M"
+          ],
+          [
+            "C10",
+            "F",
+            "M"
+          ],
+          [
+            "C11",
+            "F",
+            "M"
+          ],
+          [
+            "C12",
+            "F",
+            "M"
+          ],
+          [
+            "C13",
+            "F",
+            "M"
+          ],
+          [
+            "C14",
+            "F",
+            "M"
+          ],
+          [
+            "C15",
+            "F",
+            "M"
+          ],
+          [
+            "C16",
+            "F",
+            "M"
+          ],
+          [
+            "C17",
+            "F",
+            "M"
+          ],
+          [
+            "C18",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.6070170901236136,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.19378803070680023,
+        "F": 0.6070170901236136,
+        "M": 0.6070170901236136,
+        "C1": 0.5846705067944357,
+        "C2": 0.5846705067944357,
+        "C3": 0.5846705067944357,
+        "C4": 0.5846705067944357,
+        "C5": 0.5846705067944357,
+        "C6": 0.5846705067944357,
+        "C7": 0.5846705067944357,
+        "C8": 0.5846705067944357,
+        "C9": 0.5846705067944357,
+        "C10": 0.5846705067944357,
+        "C11": 0.5846705067944357,
+        "C12": 0.5846705067944357,
+        "C13": 0.5846705067944357,
+        "C14": 0.5846705067944357,
+        "C15": 0.5846705067944357,
+        "C16": 0.5846705067944357,
+        "C17": 0.5846705067944357,
+        "C18": 0.5846705067944357
+      },
+      "states": 45939096,
+      "transitions": 3137935724,
+      "terminal_actions_closed": 7502753,
+      "independent_states_closed": 114146,
+      "solver_seconds": 173.9961174186319,
+      "peak_rss_bytes": 3133210624,
+      "cpu_seconds": 173.801665152,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "f8b44ccbc66c946c57bb266cc99c28b84d6588248f2a6ddca6eda2bdc22288f4",
+      "initial_rss_bytes": 46415872,
+      "result_stage_rss_bytes": 3133210624
+    },
+    "nuclear_n30_g4_distinct": {
+      "family": "nuclear",
+      "people": 30,
+      "genes": 4,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "C9",
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18",
+          "C19",
+          "C20",
+          "C21",
+          "C22",
+          "C23",
+          "C24",
+          "C25",
+          "C26",
+          "C27",
+          "C28"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ],
+          [
+            "C9",
+            "F",
+            "M"
+          ],
+          [
+            "C10",
+            "F",
+            "M"
+          ],
+          [
+            "C11",
+            "F",
+            "M"
+          ],
+          [
+            "C12",
+            "F",
+            "M"
+          ],
+          [
+            "C13",
+            "F",
+            "M"
+          ],
+          [
+            "C14",
+            "F",
+            "M"
+          ],
+          [
+            "C15",
+            "F",
+            "M"
+          ],
+          [
+            "C16",
+            "F",
+            "M"
+          ],
+          [
+            "C17",
+            "F",
+            "M"
+          ],
+          [
+            "C18",
+            "F",
+            "M"
+          ],
+          [
+            "C19",
+            "F",
+            "M"
+          ],
+          [
+            "C20",
+            "F",
+            "M"
+          ],
+          [
+            "C21",
+            "F",
+            "M"
+          ],
+          [
+            "C22",
+            "F",
+            "M"
+          ],
+          [
+            "C23",
+            "F",
+            "M"
+          ],
+          [
+            "C24",
+            "F",
+            "M"
+          ],
+          [
+            "C25",
+            "F",
+            "M"
+          ],
+          [
+            "C26",
+            "F",
+            "M"
+          ],
+          [
+            "C27",
+            "F",
+            "M"
+          ],
+          [
+            "C28",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.9557654601945971,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.2957817310788004,
+        "F": 0.9557654601945971,
+        "M": 0.9557654601945971,
+        "C1": 0.9334186458100154,
+        "C2": 0.9334186458100154,
+        "C3": 0.9334186458100154,
+        "C4": 0.9334186458100154,
+        "C5": 0.9334186458100154,
+        "C6": 0.9334186458100154,
+        "C7": 0.9334186458100154,
+        "C8": 0.9334186458100154,
+        "C9": 0.9334186458100154,
+        "C10": 0.9334186458100154,
+        "C11": 0.9334186458100154,
+        "C12": 0.9334186458100154,
+        "C13": 0.9334186458100154,
+        "C14": 0.9334186458100154,
+        "C15": 0.9334186458100154,
+        "C16": 0.9334186458100154,
+        "C17": 0.9334186458100154,
+        "C18": 0.9334186458100154,
+        "C19": 0.9334186458100154,
+        "C20": 0.9334186458100154,
+        "C21": 0.9334186458100154,
+        "C22": 0.9334186458100154,
+        "C23": 0.9334186458100154,
+        "C24": 0.9334186458100154,
+        "C25": 0.9334186458100154,
+        "C26": 0.9334186458100154,
+        "C27": 0.9334186458100154,
+        "C28": 0.9334186458100154
+      },
+      "states": 303456210,
+      "transitions": 23752471670,
+      "terminal_actions_closed": 33560993,
+      "independent_states_closed": 181386,
+      "solver_seconds": 1559.4597716256976,
+      "peak_rss_bytes": 19069124608,
+      "cpu_seconds": 1557.241979392,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "db440161babd09357def743d1cb7211377c61d43caeb2a5cc8b1f6b558dffc4e",
+      "initial_rss_bytes": 47955968,
+      "result_stage_rss_bytes": 19069124608
+    },
+    "multigeneration_n9_g2_distinct": {
+      "family": "multigeneration",
+      "people": 9,
+      "genes": 2,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ],
+          [
+            "G2",
+            "C",
+            "S"
+          ],
+          [
+            "G3",
+            "C",
+            "S"
+          ],
+          [
+            "G4",
+            "C",
+            "S"
+          ],
+          [
+            "G5",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.07803354303993246,
+      "action": "C",
+      "root_action_values": {
+        "STOP": -0.00940634711549998,
+        "F": 0.05809445744715427,
+        "M": 0.05809445744715427,
+        "S": 0.07790633143760638,
+        "C": 0.07803354303993246,
+        "G1": 0.055699730833690814,
+        "G2": 0.05569973083369083,
+        "G3": 0.05569973083369083,
+        "G4": 0.05569973083369083,
+        "G5": 0.05569973083369083
+      },
+      "states": 38768275,
+      "transitions": 128497798,
+      "terminal_actions_closed": 13381541,
+      "independent_states_closed": 16702010,
+      "solver_seconds": 14440.80152166821,
+      "peak_rss_bytes": 7826604032,
+      "cpu_seconds": 14429.825292287998,
+      "backend_storage": "NoneType",
+      "source_result_sha256": "412d51536ff38f4e5c3090a2584fda6be661aaa3b16689527d8fd3ff629c34e4",
+      "initial_rss_bytes": 46055424,
+      "result_stage_rss_bytes": 7826604032
+    },
+    "nuclear_n10_g5_distinct_prior_installed": {
+      "family": "nuclear",
+      "people": 10,
+      "genes": 5,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001,
+          "g5": 0.014
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4,
+          "g5": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1,
+          "g5": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01,
+          "g5": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5,
+          "g5": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.31812411826030124,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.15785579328840013,
+        "F": 0.31812411826030124,
+        "M": 0.31812411826030124,
+        "C1": 0.297858229840787,
+        "C2": 0.297858229840787,
+        "C3": 0.297858229840787,
+        "C4": 0.297858229840787,
+        "C5": 0.297858229840787,
+        "C6": 0.297858229840787,
+        "C7": 0.297858229840787,
+        "C8": 0.297858229840787
+      },
+      "states": 44454192,
+      "transitions": 4739339544,
+      "terminal_actions_closed": 15984297,
+      "independent_states_closed": 416266,
+      "solver_seconds": 233.05487762391567,
+      "peak_rss_bytes": 3057958912,
+      "cpu_seconds": null,
+      "backend_storage": "_PackedMemo",
+      "source_result_sha256": "2bb97fc83bd80b0d559620ca98cf89287a3b142ecfab0308512d78b102216b81",
+      "initial_rss_bytes": 44810240,
+      "result_stage_rss_bytes": 3057958912
+    }
+  },
+  "memory_calibration_epochs": [
+    {
+      "case": "nuclear_n12_g5_distinct",
+      "family": "nuclear",
+      "start_states": 105452045,
+      "end_states": 111109410,
+      "start_rss_bytes": 7721205760,
+      "end_rss_bytes": 7997325312
+    },
+    {
+      "case": "nuclear_n15_g5_distinct",
+      "family": "nuclear",
+      "start_states": 210719919,
+      "end_states": 354920637,
+      "start_rss_bytes": 14543306752,
+      "end_rss_bytes": 21577678848
+    },
+    {
+      "case": "nuclear_n10_g6_distinct",
+      "family": "nuclear",
+      "start_states": 842879615,
+      "end_states": 926678454,
+      "start_rss_bytes": 55500242944,
+      "end_rss_bytes": 59593752576
+    },
+    {
+      "case": "nuclear_n10_g6_alternating",
+      "family": "nuclear",
+      "start_states": 26789894,
+      "end_states": 33989157,
+      "start_rss_bytes": 2198372352,
+      "end_rss_bytes": 2549678080
+    },
+    {
+      "case": "multigeneration_n5_g3_distinct",
+      "family": "multigeneration",
+      "start_states": 378565,
+      "end_states": 523087,
+      "start_rss_bytes": 161136640,
+      "end_rss_bytes": 172818432
+    },
+    {
+      "case": "multigeneration_n8_g2_distinct",
+      "family": "multigeneration",
+      "start_states": 2838962,
+      "end_states": 4851899,
+      "start_rss_bytes": 991707136,
+      "end_rss_bytes": 1186152448
+    },
+    {
+      "case": "multigeneration_n5_g4_distinct",
+      "family": "multigeneration",
+      "start_states": 11194877,
+      "end_states": 22296767,
+      "start_rss_bytes": 3811999744,
+      "end_rss_bytes": 4884742144
+    },
+    {
+      "case": "nuclear_n20_g5_distinct",
+      "family": "nuclear",
+      "start_states": 842879599,
+      "end_states": 1673624682,
+      "start_rss_bytes": 55497080832,
+      "end_rss_bytes": 96030474240
+    },
+    {
+      "case": "nuclear_n10_g7_alternating",
+      "family": "nuclear",
+      "start_states": 105359955,
+      "end_states": 206079815,
+      "start_rss_bytes": 8017625088,
+      "end_rss_bytes": 13246431232
+    },
+    {
+      "case": "nuclear_n20_g4_distinct",
+      "family": "nuclear",
+      "start_states": 26598825,
+      "end_states": 45939096,
+      "start_rss_bytes": 2189819904,
+      "end_rss_bytes": 3133210624
+    },
+    {
+      "case": "nuclear_n30_g4_distinct",
+      "family": "nuclear",
+      "start_states": 210719924,
+      "end_states": 303456210,
+      "start_rss_bytes": 14545436672,
+      "end_rss_bytes": 19069124608
+    },
+    {
+      "case": "multigeneration_n9_g2_distinct",
+      "family": "multigeneration",
+      "start_states": 22375614,
+      "end_states": 38768275,
+      "start_rss_bytes": 6238928896,
+      "end_rss_bytes": 7826604032
+    },
+    {
+      "case": "nuclear_n10_g5_distinct_prior_installed",
+      "family": "nuclear",
+      "start_states": 26339991,
+      "end_states": 44454192,
+      "start_rss_bytes": 2174418944,
+      "end_rss_bytes": 3057958912
+    }
+  ],
+  "native_bucket_sequence": [
+    2,
+    5,
+    11,
+    23,
+    47,
+    97,
+    197,
+    397,
+    797,
+    1597,
+    3203,
+    6421,
+    12853,
+    25717,
+    51437,
+    102877,
+    205759,
+    411527,
+    823117,
+    1646237,
+    3292489,
+    6584983,
+    13169977,
+    26339969,
+    52679969,
+    105359939,
+    210719881,
+    421439783,
+    842879579,
+    1685759167,
+    3371518343,
+    6743036717,
+    13486073473,
+    26972146961
+  ],
+  "qualifications": [
+    "Synthetic no-evidence inputs, not arbitrary pedigree capacity.",
+    "Native timings require the optional compiled extension.",
+    "Peak RSS is recorded at result availability, before process shutdown.",
+    "The historical installed 10p5g baseline lacks process CPU/exit metadata.",
+    "Exact verification checks numerical solutions and counts, not exact elapsed time or memory."
+  ]
+}

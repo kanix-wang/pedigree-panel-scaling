@@ -1,0 +1,274 @@
+{
+  "created_utc": "2026-09-15T13:50:50.916672+00:00",
+  "reference_sha256": "7be917672e2b5c9586cc2f426e5fb17f04db51d58095bc1341a864718b735dd6",
+  "all_passed": true,
+  "results": [
+    {
+      "case": "nuclear_n10_g4_distinct",
+      "status": "optimal",
+      "backend": "native",
+      "backend_storage": "_PackedMemo",
+      "family": "nuclear",
+      "people": 10,
+      "genes": 4,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8"
+        ],
+        "relationships": [
+          [
+            "C1",
+            "F",
+            "M"
+          ],
+          [
+            "C2",
+            "F",
+            "M"
+          ],
+          [
+            "C3",
+            "F",
+            "M"
+          ],
+          [
+            "C4",
+            "F",
+            "M"
+          ],
+          [
+            "C5",
+            "F",
+            "M"
+          ],
+          [
+            "C6",
+            "F",
+            "M"
+          ],
+          [
+            "C7",
+            "F",
+            "M"
+          ],
+          [
+            "C8",
+            "F",
+            "M"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2",
+          "g3",
+          "g4"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011,
+          "g3": 0.012,
+          "g4": 0.013000000000000001
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4,
+          "g3": -0.4,
+          "g4": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1,
+          "g3": -0.1,
+          "g4": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01,
+          "g3": 0.01,
+          "g4": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5,
+          "g3": 0.5,
+          "g4": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.25821118553488315,
+      "action": "F",
+      "root_action_values": {
+        "STOP": -0.09179433033480011,
+        "F": 0.25821118553488315,
+        "M": 0.25821118553488315,
+        "C1": 0.23590630089579032,
+        "C2": 0.23590630089579032,
+        "C3": 0.23590630089579032,
+        "C4": 0.23590630089579032,
+        "C5": 0.23590630089579032,
+        "C6": 0.23590630089579032,
+        "C7": 0.23590630089579032,
+        "C8": 0.23590630089579032
+      },
+      "states": 2213982,
+      "transitions": 100270178,
+      "terminal_actions_closed": 670113,
+      "independent_states_closed": 46906,
+      "solver_seconds": 4.81132741458714,
+      "cpu_seconds": 4.709508,
+      "peak_rss_bytes": 200523776,
+      "python": "3.13.5",
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "source_sha256": {
+        "exact_reductions.py": "ae99b5923a489e30a322cab1316322d7b47d11c3dd71bcb7eab33d36c7d894db",
+        "_native_exact.py": "400b4dd5126e96a428cdba8bbdf90dfcf5990ec2c66b4461192437ed5075330b",
+        "junction_tree.py": "383d5a701192535bb50f179e1b264b42fc2da25a9fa8c66f9a37fae3aedb03c8",
+        "__init__.py": "b4c3073095b45d4ad5aedbcabad8eb9755d5e2cf68bc416a80a6eeb5ab7a0883",
+        "model.py": "dfaff4a7f2422c92ee92fca7c7768555bb3af95881b79ba768c32c528f97e39b",
+        "exact.py": "949890df7ab0f666543dd5a8d640ead51a2d14561f88fd8bd4329829de2ff2e1",
+        "nuclear.py": "5636a2fb304be47ed12d79f959ecd3f247fb0d92614ec80f73b395c47f2bcba0",
+        "inference.py": "4b7cb835685da03b5c1385ded57a20ac844f73541a76f4a33a8d2ecf8a7e74c2",
+        "_nuclear_exact.py": "2eda884f8cbdc6a33a3803a3a343efd538e0fbf0e5643e978374d66e731bae4c",
+        "policies.py": "0b2926016b24864abf97f7381a27eb7c400426ffdb62b5ffbdc1fd9cee61b865",
+        "__main__.py": "6fa1302bc5574ce703329b269e503cd6bbbbb28411eaee3971a37bb1dfae5cb3",
+        "_native.cpp": "36f75d1ced4d0889a6a703fe6d7b6ee70ee0a961d536639444d2c185814241b8",
+        "_native.cpython-313-darwin.so": "320658ddcad338f43a5c4e1fba7701b766343d7763937b5e19e5be080aadbcb4"
+      },
+      "limits": {
+        "max_states": null,
+        "max_transitions": null,
+        "max_seconds": null
+      },
+      "result_available_utc": "2026-09-15T13:50:47.271217+00:00",
+      "reference_result_sha256": "5c5500199b9757206d1c680fa677589aefa8c140a0de9da274eea7b68b62ee06",
+      "verification_failures": [],
+      "verification_passed": true,
+      "python_sources_match_reference": true,
+      "reference_backend_matches": true,
+      "process_exit_code": 0,
+      "process_wall_seconds": 5.435420958325267
+    },
+    {
+      "case": "multigeneration_n5_g2_distinct",
+      "status": "optimal",
+      "backend": "python",
+      "backend_storage": "NoneType",
+      "family": "multigeneration",
+      "people": 5,
+      "genes": 2,
+      "profile": "distinct",
+      "model": {
+        "people": [
+          "F",
+          "M",
+          "S",
+          "C",
+          "G1"
+        ],
+        "relationships": [
+          [
+            "C",
+            "F",
+            "M"
+          ],
+          [
+            "G1",
+            "C",
+            "S"
+          ]
+        ],
+        "genes": [
+          "g1",
+          "g2"
+        ],
+        "allele_freqs": {
+          "g1": 0.01,
+          "g2": 0.011
+        },
+        "a_gene": {
+          "g1": -0.4,
+          "g2": -0.4
+        },
+        "b_gene": {
+          "g1": -0.1,
+          "g2": -0.1
+        },
+        "omega_gene": {
+          "g1": 0.01,
+          "g2": 0.01
+        },
+        "delta_gene": {
+          "g1": 0.5,
+          "g2": 0.5
+        },
+        "fixed_cost": 0.03,
+        "variable_cost": 0.04,
+        "initial_evidence": []
+      },
+      "value": 0.01037257354564242,
+      "action": "G1",
+      "root_action_values": {
+        "STOP": -0.004389628653899996,
+        "F": -0.0059126977383942,
+        "M": -0.005912697738394198,
+        "S": 0.00026706272352820457,
+        "C": 0.009454536319453834,
+        "G1": 0.01037257354564242
+      },
+      "states": 14255,
+      "transitions": 36951,
+      "terminal_actions_closed": 9381,
+      "independent_states_closed": 1880,
+      "solver_seconds": 3.0560248345136642,
+      "cpu_seconds": 3.183188,
+      "peak_rss_bytes": 41615360,
+      "python": "3.13.5",
+      "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+      "source_sha256": {
+        "exact_reductions.py": "ae99b5923a489e30a322cab1316322d7b47d11c3dd71bcb7eab33d36c7d894db",
+        "_native_exact.py": "400b4dd5126e96a428cdba8bbdf90dfcf5990ec2c66b4461192437ed5075330b",
+        "junction_tree.py": "383d5a701192535bb50f179e1b264b42fc2da25a9fa8c66f9a37fae3aedb03c8",
+        "__init__.py": "b4c3073095b45d4ad5aedbcabad8eb9755d5e2cf68bc416a80a6eeb5ab7a0883",
+        "model.py": "dfaff4a7f2422c92ee92fca7c7768555bb3af95881b79ba768c32c528f97e39b",
+        "exact.py": "949890df7ab0f666543dd5a8d640ead51a2d14561f88fd8bd4329829de2ff2e1",
+        "nuclear.py": "5636a2fb304be47ed12d79f959ecd3f247fb0d92614ec80f73b395c47f2bcba0",
+        "inference.py": "4b7cb835685da03b5c1385ded57a20ac844f73541a76f4a33a8d2ecf8a7e74c2",
+        "_nuclear_exact.py": "2eda884f8cbdc6a33a3803a3a343efd538e0fbf0e5643e978374d66e731bae4c",
+        "policies.py": "0b2926016b24864abf97f7381a27eb7c400426ffdb62b5ffbdc1fd9cee61b865",
+        "__main__.py": "6fa1302bc5574ce703329b269e503cd6bbbbb28411eaee3971a37bb1dfae5cb3",
+        "_native.cpp": "36f75d1ced4d0889a6a703fe6d7b6ee70ee0a961d536639444d2c185814241b8",
+        "_native.cpython-313-darwin.so": "320658ddcad338f43a5c4e1fba7701b766343d7763937b5e19e5be080aadbcb4"
+      },
+      "limits": {
+        "max_states": null,
+        "max_transitions": null,
+        "max_seconds": null
+      },
+      "result_available_utc": "2026-09-15T13:50:50.896831+00:00",
+      "reference_result_sha256": "63cc13dc1c5cf0c97c005aa2318fe6dbf7d2a966d04d00474628d3c39d90ac0f",
+      "verification_failures": [],
+      "verification_passed": true,
+      "python_sources_match_reference": true,
+      "reference_backend_matches": true,
+      "process_exit_code": 0,
+      "process_wall_seconds": 3.3308818340301514
+    }
+  ],
+  "timing_note": "Solver time ends at result availability. Process wall time includes startup and natural shutdown.",
+  "memory_note": "Peak RSS through result-stage sampling; bytes on macOS/Linux, unavailable (null) on unsupported platforms. Not a guaranteed whole-lifetime peak.",
+  "performance_note": "Time and memory are measured, not pass/fail thresholds; the historical machine and backend can differ.",
+  "portable_command": "python benchmarks/verify.py --case nuclear_n10_g4_distinct --case multigeneration_n5_g2_distinct --output benchmark-results/fresh-verification.json",
+  "runner_sha256": "7236af55a233046d8e43c3ae79bb707039549e0f2376c8ac8d9e1fe4ba836af5"
+}
