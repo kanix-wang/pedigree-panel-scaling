@@ -1,12 +1,9 @@
 # Pedigree Panel Scaling
 
 A standalone Python package for sequential genetic panel testing, with exact
-pedigree inference and full-horizon Bellman optimization. It extracts the
-inference core from `gt_code4` and implements the unrestricted backward-induction
-recurrence used by `gt_code2`.
+pedigree inference and full-horizon Bellman optimization.
 
-The scaling target is **10–15 individuals with 10–15 genes per panel**. Exact
-optimization has completed for ten-person nuclear families with six distinct
+Exact optimization has completed for ten-person nuclear families with six distinct
 gene profiles and seven genes sharing two profiles, and twenty people with five
 distinct profiles. Completion at the full 10–15-gene target has not been
 demonstrated. The default command solves a small three-person, two-gene example.
